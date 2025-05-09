@@ -1,8 +1,24 @@
-server:
-port: 9080
 spring:
-datasource:
-driver-class-name: oracle.jdbc.driver.OracleDriver
-url: jdbc:oracle:thin:@localhost:1521/xe
-username: c##bbs
-password: bbs1234
+  # app 이름
+  application:
+    name: demo
+  # DB연결 정보
+  datasource:
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:@localhost:1521/xe
+    username: c##bbs
+    password: bbs1234
+
+# 웹서버 포트
+server:
+  port: 9080
+
+
+# 로그레벨
+# trace > debug > info > warn > error > fatal
+logging:
+  level:
+    root: info
+
+
+

@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface PostSVC {
   //post 등록
-  Long save(Post post);
+  Long save(Post Post);
 
   //post 조회(여러건)
   List<Post> findAll();
@@ -16,7 +16,7 @@ public interface PostSVC {
   Optional<Post> findById(Long id);
 
   //post 수정
-  int updateById(Long id, Post post);
+  int updateById(Long id, Post Post);
 
   //post 삭제
   int deleteByIds(Long id);

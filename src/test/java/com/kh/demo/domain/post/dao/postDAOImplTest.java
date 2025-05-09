@@ -15,9 +15,9 @@ import java.util.Optional;
 
 
 @SpringBootTest
-class PostDAOImplTest {
+class postDAOImplTest {
 
-  private static final Logger log = LoggerFactory.getLogger(PostDAOImplTest.class);
+  private static final Logger log = LoggerFactory.getLogger(postDAOImplTest.class);
   @Autowired
   PostDAO postDAO; // 실제 PostDAO 빈 주입
 
@@ -27,8 +27,8 @@ class PostDAOImplTest {
   @DisplayName("게시글 목록 조회")
   void findAll() {
     List<Post> list = postDAO.findAll();
-    for (Post post : list) {
-      log.info("post={}", post);
+    for (Post Post : list) {
+      log.info("post={}", Post);
 
     }
   }
@@ -72,13 +72,13 @@ class PostDAOImplTest {
   @DisplayName("게시글 수정")
   void updateById() {
     Long postId = 8L; // 예시 ID
-    Post post = new Post();
-    post.setTitle("수정된 제목");
-    post.setContent("수정된 내용");
-    post.setAuthor("수정된 작성자");
-    post.setModificationDate(LocalDateTime.now());
+    Post Post = new Post();
+    Post.setTitle("수정된 제목");
+    Post.setContent("수정된 내용");
+    Post.setAuthor("수정된 작성자");
+    Post.setModificationDate(LocalDateTime.now());
 
-    int rows = postDAO.updateById(postId, post);
+    int rows = postDAO.updateById(postId, Post);
 
     Optional<Post> optPost = postDAO.findById(postId);
     Post modifiedPost = optPost.orElseThrow();

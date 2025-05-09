@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PostDAO {
-  Long save(Post post);
+  Long save(Post Post);
   List<Post> findAll();
   Optional<Post> findById(Long postId);
-  int updateById(Long postId, Post post);
+  int updateById(Long postId, Post Post);
   int deleteById(Long postId);
 }

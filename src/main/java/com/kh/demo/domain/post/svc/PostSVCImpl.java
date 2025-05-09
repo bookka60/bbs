@@ -19,8 +19,8 @@ public class PostSVCImpl implements PostSVC{
 
   //post 등록
   @Override
-  public Long save(Post post) {
-    return postDAO.save(post);
+  public Long save(Post Post) {
+    return postDAO.save(Post);
   }
 
   //post 조회(여러건)
@@ -37,8 +37,8 @@ public class PostSVCImpl implements PostSVC{
 
   //post 수정
   @Override
-  public int updateById(Long id, Post post) {
-    return postDAO.updateById(id, post);
+  public int updateById(Long id, Post Post) {
+    return postDAO.updateById(id, Post);
   }
 
 

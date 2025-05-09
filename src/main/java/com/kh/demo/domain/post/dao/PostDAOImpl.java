@@ -26,30 +26,30 @@ public class PostDAOImpl implements PostDAO {
 
   RowMapper<Post> postRowMapper() {
     return (rs, rowNum)-> {
-      Post post = new Post();
-      post.setPostID(rs.getLong("post_id"));
-      post.setTitle(rs.getString("title"));
-      post.setContent(rs.getString("content"));
-      post.setAuthor(rs.getString("author"));
-      post.setCreationDate(rs.getTimestamp("creation_date").toLocalDateTime());
-      post.setModificationDate(rs.getTimestamp("modification_date").toLocalDateTime());
-      return post;
+      Post Post = new Post();
+      Post.setPostID(rs.getLong("post_id"));
+      Post.setTitle(rs.getString("title"));
+      Post.setContent(rs.getString("content"));
+      Post.setAuthor(rs.getString("author"));
+      Post.setCreationDate(rs.getTimestamp("creation_date").toLocalDateTime());
+      Post.setModificationDate(rs.getTimestamp("modification_date").toLocalDateTime());
+      return Post;
     };
   }
 
   /**
    * Post등록
-   * @param post
+   * @param Post
    * @return
    */
   @Override
-  public Long save(Post post) {
+  public Long save(Post Post) {
     StringBuffer sql = new StringBuffer();
     sql.append("INSERT INTO post (post_id, title, content, author, creation_date, modification_date) ");
     sql.append("     VALUES (POST_POST_ID_SEQ.nextval, :title, :content, :author, :creationDate, :modificationDate)");
 
     // 자바 객체 필드명과 SQL 파라미터명을 자동 매칭
-    SqlParameterSource param = new BeanPropertySqlParameterSource(post);
+    SqlParameterSource param = new BeanPropertySqlParameterSource(Post);
 
     // 생성된 key 값을 저장할 KeyHolder
     KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -82,25 +82,25 @@ public class PostDAOImpl implements PostDAO {
 
     SqlParameterSource param = new MapSqlParameterSource().addValue("postId", postId);
 
-    Post post = null;
+    Post Post = null;
     try {
-      post = template.queryForObject(sql.toString(), param, BeanPropertyRowMapper.newInstance(Post.class));
+      Post = template.queryForObject(sql.toString(), param, BeanPropertyRowMapper.newInstance(Post.class));
     } catch (EmptyResultDataAccessException e) {
       return Optional.empty();
     }
 
-    return Optional.of(post);
+    return Optional.of(Post);
   }
 
 
   /**
    * 게시글 수정
    * @param postId 게시글 번호
-   * @param post 게시글 정보
+   * @param Post 게시글 정보
    * @return 수정된 게시글 건수
    */
   @Override
-  public int updateById(Long postId, Post post) {
+  public int updateById(Long postId, Post Post) {
     StringBuffer sql = new StringBuffer();
     sql.append("UPDATE post ");
     sql.append("   SET title = :title,  content = :content, author = :author ");
@@ -108,10 +108,10 @@ public class PostDAOImpl implements PostDAO {
     sql.append(" WHERE post_id = :postId ");
 
     SqlParameterSource param = new MapSqlParameterSource()
-        .addValue("title", post.getTitle())
-        .addValue("content", post.getContent())
-        .addValue("author", post.getAuthor())
-        .addValue("modificationDate", post.getModificationDate())
+        .addValue("title", Post.getTitle())
+        .addValue("content", Post.getContent())
+        .addValue("author", Post.getAuthor())
+        .addValue("modificationDate", Post.getModificationDate())
         .addValue("postId", postId);
 
     int rows = template.update(sql.toString(), param);
