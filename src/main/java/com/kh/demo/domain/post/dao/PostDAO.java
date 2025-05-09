@@ -1,0 +1,14 @@
+package com.kh.demo.domain.post.dao;
+
+import com.kh.demo.domain.entity.Post;
+
+import java.util.List;
+import java.util.Optional;
+
+public interface PostDAO {
+  Long save(Post post);
+  List<Post> findAll();
+  Optional<Post> findById(Long postId);
+  int updateById(Long postId, Post post);
+  int deleteById(Long postId);
+}

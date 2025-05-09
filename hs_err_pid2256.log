@@ -1,0 +1,238 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (mmap) failed to map 536870912 bytes. Error detail: G1 virtual space
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   This process is running with CompressedOops enabled, and the Java Heap may be blocking the growth of the native heap
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+#   JVM is running with Zero Based Compressed Oops mode in which the Java heap is
+#     placed in the first 32GB address space. The Java Heap base address is the
+#     maximum limit for the native heap growth. Please use -XX:HeapBaseMinAddress
+#     to set the Java Heap base and to place the Java Heap above 32GB virtual address.
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (os_windows.cpp:3618), pid=2256, tid=13372
+#
+# JRE version:  (17.0.15+6) (build )
+# Java VM: OpenJDK 64-Bit Server VM (17.0.15+6, mixed mode, sharing, tiered, compressed oops, compressed class ptrs, g1 gc, windows-amd64)
+# No core dump will be written. Minidumps are not enabled by default on client versions of Windows
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: -ea -Didea.test.cyclic.buffer.size=1048576 -javaagent:C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2024.3.5\lib\idea_rt.jar=61655 -javaagent:C:\Users\user\AppData\Local\JetBrains\IdeaIC2024.3\captureAgent\debugger-agent.jar -Dkotlinx.coroutines.debug.enable.creation.stack.trace=false -Ddebugger.agent.enable.coroutines=true -Dkotlinx.coroutines.debug.enable.flows.stack.trace=true -Dkotlinx.coroutines.debug.enable.mutable.state.flows.stack.trace=true -Dfile.encoding=UTF-8 com.intellij.rt.junit.JUnitStarter -ideVersion5 -junit5 com.kh.demo.DemoApplicationTests
+
+Host: 13th Gen Intel(R) Core(TM) i5-13400, 16 cores, 31G,  Windows 11 , 64 bit Build 26100 (10.0.26100.3775)
+Time: Thu May  8 17:44:37 2025  Windows 11 , 64 bit Build 26100 (10.0.26100.3775) elapsed time: 1.020554 seconds (0d 0h 0m 1s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x000002c510fa5170):  JavaThread "Unknown thread" [_thread_in_vm, id=13372, stack(0x000000e32dd00000,0x000000e32de00000)]
+
+Stack: [0x000000e32dd00000,0x000000e32de00000]
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [jvm.dll+0x682fc9]
+V  [jvm.dll+0x839878]
+V  [jvm.dll+0x83b323]
+V  [jvm.dll+0x83b993]
+V  [jvm.dll+0x24725f]
+V  [jvm.dll+0x67fda9]
+V  [jvm.dll+0x674c9a]
+V  [jvm.dll+0x304d06]
+V  [jvm.dll+0x30c1c6]
+V  [jvm.dll+0x35dd4e]
+V  [jvm.dll+0x35df8d]
+V  [jvm.dll+0x2dc0cc]
+V  [jvm.dll+0x2dcfe4]
+V  [jvm.dll+0x80b7cb]
+V  [jvm.dll+0x36b781]
+V  [jvm.dll+0x7ea31f]
+V  [jvm.dll+0x3f237e]
+V  [jvm.dll+0x3f3eb1]
+C  [jli.dll+0x5278]
+C  [ucrtbase.dll+0x37b0]
+C  [KERNEL32.DLL+0x2e8d7]
+C  [ntdll.dll+0xb14fc]
+
+
+---------------  P R O C E S S  ---------------
+
+Threads class SMR info:
+_java_thread_list=0x00007ff9efd67f58, length=0, elements={
+}
+
+Java Threads: ( => current thread )
+
+Other Threads:
+  0x000002c53d1d0a00 GCTaskThread "GC Thread#0" [stack: 0x000000e32de00000,0x000000e32df00000] [id=9156]
+  0x000002c511026720 ConcurrentGCThread "G1 Main Marker" [stack: 0x000000e32df00000,0x000000e32e000000] [id=8996]
+  0x000002c511027d20 ConcurrentGCThread "G1 Conc#0" [stack: 0x000000e32e000000,0x000000e32e100000] [id=2744]
+
+[error occurred during error reporting (printing all threads), id 0xc0000005, EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x00007ff9ef51cbf7]
+
+VM state: not at safepoint (not fully initialized)
+
+VM Mutex/Monitor currently owned by a thread:  ([mutex/lock_event])
+[0x000002c510fa1480] Heap_lock - owner thread: 0x000002c510fa5170
+
+Heap address: 0x0000000603800000, size: 8136 MB, Compressed Oops mode: Zero based, Oop shift amount: 3
+
+CDS archive(s) mapped at: [0x0000000000000000-0x0000000000000000-0x0000000000000000), size 0, SharedBaseAddress: 0x0000000800000000, ArchiveRelocationMode: 1.
+Narrow klass base: 0x0000000000000000, Narrow klass shift: 0, Narrow klass range: 0x0
+
+GC Precious Log:
+<Empty>
+
+Heap:
+ garbage-first heap   total 0K, used 0K [0x0000000603800000, 0x0000000800000000)
+  region size 4096K, 0 young (0K), 0 survivors (0K)
+
+[error occurred during error reporting (printing heap information), id 0xc0000005, EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x00007ff9ef90c689]
+
+GC Heap History (0 events):
+No events
+
+Dll operation events (2 events):
+Event: 0.006 Loaded shared library C:\Users\user\.jdks\temurin-17.0.15\bin\java.dll
+Event: 0.006 Loaded shared library C:\Users\user\.jdks\temurin-17.0.15\bin\zip.dll
+
+Deoptimization events (0 events):
+No events
+
+Classes loaded (0 events):
+No events
+
+Classes unloaded (0 events):
+No events
+
+Classes redefined (0 events):
+No events
+
+Internal exceptions (0 events):
+No events
+
+VM Operations (0 events):
+No events
+
+Memory protections (0 events):
+No events
+
+Nmethod flushes (0 events):
+No events
+
+Events (0 events):
+No events
+
+
+Dynamic libraries:
+0x00007ff6e77c0000 - 0x00007ff6e77ce000 	C:\Users\user\.jdks\temurin-17.0.15\bin\java.exe
+0x00007ffa5d1e0000 - 0x00007ffa5d440000 	C:\WINDOWS\SYSTEM32\ntdll.dll
+0x00007ffa5c000000 - 0x00007ffa5c0c7000 	C:\WINDOWS\System32\KERNEL32.DLL
+0x00007ffa5a3c0000 - 0x00007ffa5a78a000 	C:\WINDOWS\System32\KERNELBASE.dll
+0x00007ffa5a790000 - 0x00007ffa5a8db000 	C:\WINDOWS\System32\ucrtbase.dll
+0x00007ffa4b420000 - 0x00007ffa4b437000 	C:\Users\user\.jdks\temurin-17.0.15\bin\jli.dll
+0x00007ffa4b400000 - 0x00007ffa4b41e000 	C:\Users\user\.jdks\temurin-17.0.15\bin\VCRUNTIME140.dll
+0x00007ffa5bdb0000 - 0x00007ffa5bf7c000 	C:\WINDOWS\System32\USER32.dll
+0x00007ffa5ac30000 - 0x00007ffa5ac57000 	C:\WINDOWS\System32\win32u.dll
+0x00007ffa390f0000 - 0x00007ffa39387000 	C:\WINDOWS\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.26100.3624_none_3e086962e3345f24\COMCTL32.dll
+0x00007ffa5b950000 - 0x00007ffa5b97a000 	C:\WINDOWS\System32\GDI32.dll
+0x00007ffa5c490000 - 0x00007ffa5c539000 	C:\WINDOWS\System32\msvcrt.dll
+0x00007ffa5ade0000 - 0x00007ffa5af11000 	C:\WINDOWS\System32\gdi32full.dll
+0x00007ffa5a8e0000 - 0x00007ffa5a983000 	C:\WINDOWS\System32\msvcp_win.dll
+0x00007ffa5bcf0000 - 0x00007ffa5bd1f000 	C:\WINDOWS\System32\IMM32.DLL
+0x00007ffa4b3f0000 - 0x00007ffa4b3fc000 	C:\Users\user\.jdks\temurin-17.0.15\bin\vcruntime140_1.dll
+0x00007ffa481f0000 - 0x00007ffa4827d000 	C:\Users\user\.jdks\temurin-17.0.15\bin\msvcp140.dll
+0x00007ff9ef230000 - 0x00007ff9efe9b000 	C:\Users\user\.jdks\temurin-17.0.15\bin\server\jvm.dll
+0x00007ffa5b750000 - 0x00007ffa5b802000 	C:\WINDOWS\System32\ADVAPI32.dll
+0x00007ffa5cc70000 - 0x00007ffa5cd16000 	C:\WINDOWS\System32\sechost.dll
+0x00007ffa5b820000 - 0x00007ffa5b936000 	C:\WINDOWS\System32\RPCRT4.dll
+0x00007ffa5bd30000 - 0x00007ffa5bda4000 	C:\WINDOWS\System32\WS2_32.dll
+0x00007ffa4a2c0000 - 0x00007ffa4a2cb000 	C:\WINDOWS\SYSTEM32\VERSION.dll
+0x00007ffa59050000 - 0x00007ffa590ae000 	C:\WINDOWS\SYSTEM32\POWRPROF.dll
+0x00007ffa53e00000 - 0x00007ffa53e36000 	C:\WINDOWS\SYSTEM32\WINMM.dll
+0x00007ffa59030000 - 0x00007ffa59044000 	C:\WINDOWS\SYSTEM32\UMPDC.dll
+0x00007ffa592f0000 - 0x00007ffa5930a000 	C:\WINDOWS\SYSTEM32\kernel.appcore.dll
+0x00007ffa481e0000 - 0x00007ffa481ea000 	C:\Users\user\.jdks\temurin-17.0.15\bin\jimage.dll
+0x00007ffa3e140000 - 0x00007ffa3e381000 	C:\WINDOWS\SYSTEM32\DBGHELP.DLL
+0x00007ffa5ce10000 - 0x00007ffa5d192000 	C:\WINDOWS\System32\combase.dll
+0x00007ffa5b980000 - 0x00007ffa5ba56000 	C:\WINDOWS\System32\OLEAUT32.dll
+0x00007ff9ff200000 - 0x00007ff9ff239000 	C:\WINDOWS\SYSTEM32\dbgcore.DLL
+0x00007ffa5ab00000 - 0x00007ffa5ab99000 	C:\WINDOWS\System32\bcryptPrimitives.dll
+0x00007ffa38660000 - 0x00007ffa3866e000 	C:\Users\user\.jdks\temurin-17.0.15\bin\instrument.dll
+0x00007ffa481b0000 - 0x00007ffa481d5000 	C:\Users\user\.jdks\temurin-17.0.15\bin\java.dll
+0x00007ffa37580000 - 0x00007ffa37598000 	C:\Users\user\.jdks\temurin-17.0.15\bin\zip.dll
+
+dbghelp: loaded successfully - version: 4.0.5 - missing functions: none
+symbol engine: initialized successfully - sym options: 0x614 - pdb path: .;C:\Users\user\.jdks\temurin-17.0.15\bin;C:\WINDOWS\SYSTEM32;C:\WINDOWS\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.26100.3624_none_3e086962e3345f24;C:\Users\user\.jdks\temurin-17.0.15\bin\server
+
+VM Arguments:
+jvm_args: -ea -Didea.test.cyclic.buffer.size=1048576 -javaagent:C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2024.3.5\lib\idea_rt.jar=61655 -javaagent:C:\Users\user\AppData\Local\JetBrains\IdeaIC2024.3\captureAgent\debugger-agent.jar -Dkotlinx.coroutines.debug.enable.creation.stack.trace=false -Ddebugger.agent.enable.coroutines=true -Dkotlinx.coroutines.debug.enable.flows.stack.trace=true -Dkotlinx.coroutines.debug.enable.mutable.state.flows.stack.trace=true -Dfile.encoding=UTF-8 
+java_command: com.intellij.rt.junit.JUnitStarter -ideVersion5 -junit5 com.kh.demo.DemoApplicationTests
+java_class_path (initial): C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2024.3.5\lib\idea_rt.jar;C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2024.3.5\plugins\junit\lib\junit5-rt.jar;C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2024.3.5\plugins\junit\lib\junit-rt.jar;C:\KDT\projects\demo_1\out\test\classes;C:\KDT\projects\demo_1\out\production\classes;C:\KDT\projects\demo_1\out\production\resources;C:\Users\user\.gradle\caches\modules-2\files-2.1\org.springframework.boot\spring-boot-starter-data-jpa\3.4.5\c6ef06dfef1b02f3e3f82d67118d3944672e7d49\spring-boot-starter-data-jpa-3.4.5.jar;C:\Users\user\.gradle\caches\modules-2\files-2.1\org.springframework.boot\spring-boot-starter-thymeleaf\3.4.5\6564b6a1c10118e662cb8c776eef27d76c0ff78d\spring-boot-starter-thymeleaf-3.4.5.jar;C:\Users\user\.gradle\caches\modules-2\files-2.1\org.springframework.boot\spring-boot-starter-web\3.4.5\54cb03e8615f0c10cd44b5b7d155af3d0be7d66a\spring-boot-starter-web-3.4.5.jar;C:\Users\user\.gradle\caches\modules-2\files-2.1\org.springframework.boot\spring-boot-starter-test\3.4.5\d32bf5dbb8fb188c0e26f2ebc659a8c29d1cb8c8\spring-boot-starter-test-3.4.5.jar;C:\Users\user\.gradle\caches\modules-2\files-2.1\org.springframework.boot\spring-boot-starter-jdbc\3.4.5\e361f635454d0694547cc226ece3aa10fde7ff2b\spring-boot-starter-jdbc-3.4.5.jar;C:\Users\user\.gradle\caches\modules-2\files-2.1\org.springframework.boot\spring-boot-starter\3.4.5\3b1cd30bd3be52f5fd0c0934882ec86ed4457646\spring-boot-starter-3.4.5.jar;C:\Users\user\.gradle\caches\modules-2\files-2.1\org.hibernate.orm\hibernate-core\6.6.13.Final\e7f1b2d53e89b9863dca12cd5f1b261ba413415b\hibernate-core-6.6.13.Final.jar;C:\Users\user\.gradle\caches\modules-2\files-2.1\org.springframework.data\spring-data-jpa\3.4.5\40000309bebdc0e4e284211701f039eb5b1fb1a6\spring-data-jpa-3.4.5.jar;C:\Users\user\.gradle\caches\modules-2\files-2.1\org.springframework\spring-aspects\6.2.6\2bb7fe48b4fef28af71be32815200c19ac95f783\
+Launcher Type: SUN_STANDARD
+
+[Global flags]
+     intx CICompilerCount                          = 12                                        {product} {ergonomic}
+     uint ConcGCThreads                            = 3                                         {product} {ergonomic}
+     uint G1ConcRefinementThreads                  = 13                                        {product} {ergonomic}
+   size_t G1HeapRegionSize                         = 4194304                                   {product} {ergonomic}
+    uintx GCDrainStackTargetSize                   = 64                                        {product} {ergonomic}
+   size_t InitialHeapSize                          = 536870912                                 {product} {ergonomic}
+   size_t MarkStackSize                            = 4194304                                   {product} {ergonomic}
+   size_t MaxHeapSize                              = 8531214336                                {product} {ergonomic}
+   size_t MinHeapDeltaBytes                        = 4194304                                   {product} {ergonomic}
+   size_t MinHeapSize                              = 8388608                                   {product} {ergonomic}
+    uintx NonNMethodCodeHeapSize                   = 7602480                                {pd product} {ergonomic}
+    uintx NonProfiledCodeHeapSize                  = 122027880                              {pd product} {ergonomic}
+    uintx ProfiledCodeHeapSize                     = 122027880                              {pd product} {ergonomic}
+    uintx ReservedCodeCacheSize                    = 251658240                              {pd product} {ergonomic}
+     bool SegmentedCodeCache                       = true                                      {product} {ergonomic}
+   size_t SoftMaxHeapSize                          = 8531214336                             {manageable} {ergonomic}
+     bool UseCompressedClassPointers               = true                           {product lp64_product} {ergonomic}
+     bool UseCompressedOops                        = true                           {product lp64_product} {ergonomic}
+     bool UseG1GC                                  = true                                      {product} {ergonomic}
+     bool UseLargePagesIndividualAllocation        = false                                  {pd product} {ergonomic}
+
+Logging:
+Log output configuration:
+ #0: stdout all=warning uptime,level,tags
+ #1: stderr all=off uptime,level,tags
+
+Environment Variables:
+PATH=C:\KDT\app\user\product\21c\dbhomeXE\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\nodejs\;C:\Program Files\Bandizip\;C:\Program Files\Git\cmd;C:\Users\user\AppData\Local\Microsoft\WindowsApps;C:\Users\user\AppData\Local\Programs\Microsoft VS Code\bin;;C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2024.3.5\bin;;C:\Users\user\AppData\Roaming\npm;C:\Program Files\JetBrains\PyCharm Community Edition 2024.3.5\bin;
+USERNAME=user
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 183 Stepping 1, GenuineIntel
+TMP=C:\Users\user\AppData\Local\Temp
+TEMP=C:\Users\user\AppData\Local\Temp
+
+
+
+Periodic native trim disabled
+
+
+---------------  S Y S T E M  ---------------
+
+OS:
+ Windows 11 , 64 bit Build 26100 (10.0.26100.3775)
+OS uptime: 24 days 3:35 hours
+
+CPU: total 16 (initial active 16) (8 cores per cpu, 2 threads per core) family 6 model 183 stepping 1 microcode 0x120, cx8, cmov, fxsr, ht, mmx, 3dnowpref, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, lzcnt, tsc, tscinvbit, avx, avx2, aes, erms, clmul, bmi1, bmi2, adx, sha, fma, vzeroupper, clflush, clflushopt, clwb
+Processor Information for all 16 processors :
+  Max Mhz: 2500, Current Mhz: 2500, Mhz Limit: 2500
+
+Memory: 4k page, system-wide physical 32537M (4705M free)
+TotalPageFile size 92041M (AvailPageFile size 369M)
+current process WorkingSet (physical memory assigned to process): 13M, peak: 13M
+current process commit charge ("private bytes"): 71M, peak: 583M
+
+vm_info: OpenJDK 64-Bit Server VM (17.0.15+6) for windows-amd64 JRE (17.0.15+6), built on Apr 15 2025 21:25:47 by "admin" with MS VC++ 17.7 (VS2022)
+
+END.

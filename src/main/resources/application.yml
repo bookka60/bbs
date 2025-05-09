@@ -1,0 +1,8 @@
+server:
+port: 9080
+spring:
+datasource:
+driver-class-name: oracle.jdbc.driver.OracleDriver
+url: jdbc:oracle:thin:@localhost:1521/xe
+username: c##bbs
+password: bbs1234
