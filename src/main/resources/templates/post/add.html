@@ -1,12 +1,100 @@
 <!DOCTYPE html>
-<html lang="ko"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Title</title>
+  <title>게시글 작성</title>
+  <style>
+    .field-err {
+      color: red;
+      font-size: 0.9em;
+    }
+  </style>
 </head>
 <body>
+<h1>글쓰기</h1>
+<form id="frm" th:action="@{/post/add}" th:object="${post}" method="post">
 
+  <!-- 글로벌 에러 (예: 총 길이 등) -->
+  <div th:if="${#fields.hasGlobalErrors()}">
+    <p class="global-err" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
+  </div>
+
+  <!-- 제목 -->
+  <div>
+    <label for="title">제목</label>
+    <input type="text" id="title" th:field="*{title}">
+    <span class="field-err" th:each="err : ${#fields.errors('title')}" th:text="${err}"></span>
+    <span class="field-err" id="errTitle"></span>
+  </div>
+
+  <!-- 작성자 -->
+  <div>
+    <label for="author">작성자</label>
+    <input type="text" id="author" th:field="*{author}">
+    <span class="field-err" th:each="err : ${#fields.errors('author')}" th:text="${err}"></span>
+    <span class="field-err" id="errAuthor"></span>
+  </div>
+
+  <!-- 내용 -->
+  <div>
+    <label for="content">내용</label>
+    <textarea id="content" th:field="*{content}"></textarea>
+    <span class="field-err" th:each="err : ${#fields.errors('content')}" th:text="${err}"></span>
+    <span class="field-err" id="errContent"></span>
+  </div>
+
+  <div>
+    <button type="submit" id="btnAdd">등록</button>
+    <button type="button" id="btnList">목록</button>
+  </div>
+</form>
+
+<script>
+  const btnAdd = document.getElementById('btnAdd');
+  const btnList = document.getElementById('btnList');
+  const title = document.getElementById('title');
+  const author = document.getElementById('author');
+  const content = document.getElementById('content');
+
+  const errTitle = document.getElementById('errTitle');
+  const errAuthor = document.getElementById('errAuthor');
+  const errContent = document.getElementById('errContent');
+
+  btnAdd.addEventListener('click', function (e) {
+    e.preventDefault();
+
+    // 유효성 체크
+    let isValid = true;
+
+    if (title.value.trim().length === 0) {
+      errTitle.textContent = "제목은 필수입니다.";
+      isValid = false;
+    } else {
+      errTitle.textContent = "";
+    }
+
+    if (author.value.trim().length === 0) {
+      errAuthor.textContent = "작성자는 필수입니다.";
+      isValid = false;
+    } else {
+      errAuthor.textContent = "";
+    }
+
+    if (content.value.trim().length === 0) {
+      errContent.textContent = "내용은 필수입니다.";
+      isValid = false;
+    } else {
+      errContent.textContent = "";
+    }
+
+    if (isValid) {
+      document.getElementById('frm').submit();
+    }
+  });
+
+  btnList.addEventListener('click', function () {
+    window.location.href = '/post/list';
+  });
+</script>
 </body>
 </html>

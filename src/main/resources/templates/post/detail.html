@@ -1,12 +1,83 @@
 <!DOCTYPE html>
-<html lang="ko"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Title</title>
+  <meta charset="UTF-8" />
+  <title>게시글 상세</title>
 </head>
 <body>
+<h3>게시글 상세</h3>
+
+<form action="" method="" th:object="${post}">
+  <div>
+    <label>게시글ID</label>
+    <input type="text" name="postId" id="postId" th:field="*{postId}" readonly />
+  </div>
+  <div>
+    <label>제목</label>
+    <input type="text" name="title" id="title" th:field="*{title}" readonly />
+  </div>
+  <div>
+    <label>내용</label>
+    <textarea id="content" th:field="*{content}" readonly></textarea>
+  </div>
+  <div>
+    <label>작성자</label>
+    <input type="text" name="author" id="author" th:field="*{author}" readonly />
+  </div>
+  <div>
+    <label>작성일</label>
+    <input type="text" id="creationDate" th:value="${#temporals.format(post.creationDate, 'yyyy-MM-dd HH:mm')}" readonly />
+  </div>
+  <div>
+    <button type="button" id="btnUpdate">수정</button>
+    <button type="button" id="btnDelete">삭제</button>
+    <button type="button" id="btnList">목록</button>
+  </div>
+</form>
+
+<dialog id="modalDel">
+  <p>삭제하시겠습니까?</p>
+  <button class="btnYes">예</button>
+  <button class="btnNo">아니오</button>
+</dialog>
+
+<script>
+  // 수정 버튼
+  const $btnUpdate = document.getElementById('btnUpdate');
+  $btnUpdate.addEventListener('click', e => {
+    const $postId = document.getElementById('postId');
+    const postId = $postId.value;
+    location.href = `/post/${postId}/edit`;  // 예: /post/1/edit
+  }, false);
+
+  // 삭제 버튼
+  const $btnDelete = document.getElementById('btnDelete');
+  $btnDelete.addEventListener('click', e => {
+    const $postId = document.getElementById('postId');
+    const postId = $postId.value;
+
+    const $modal = document.getElementById('modalDel');
+    const $btnYes = document.querySelector('.btnYes');
+    const $btnNo = document.querySelector('.btnNo');
+
+    $modal.showModal();
+
+    $modal.addEventListener('close', event => {
+      if ($modal.returnValue === 'yes') {
+        location.href = `/post/${postId}/del`;
+      }
+    });
+
+    $btnYes.addEventListener('click', e => $modal.close('yes'));
+    $btnNo.addEventListener('click', e => $modal.close('no'));
+  });
+
+  // 목록 버튼
+  const $btnList = document.getElementById('btnList');
+  $btnList.addEventListener('click', e => {
+    location.href = '/post/list';
+  }, false);
+</script>
 
 </body>
 </html>

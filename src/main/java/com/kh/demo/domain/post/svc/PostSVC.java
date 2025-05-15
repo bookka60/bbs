@@ -18,6 +18,9 @@ public interface PostSVC {
   //post 수정
   int updateById(Long id, Post Post);
 
-  //post 삭제
-  int deleteByIds(Long id);
+  //post 삭제(여러건)
+  int deleteByIds(List<Long> ids);
+
+  //post 삭제(단건)
+  int deleteById(Long postId);
 }

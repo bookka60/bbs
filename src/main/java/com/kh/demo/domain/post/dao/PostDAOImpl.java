@@ -15,6 +15,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Slf4j
@@ -27,7 +28,7 @@ public class PostDAOImpl implements PostDAO {
   RowMapper<Post> postRowMapper() {
     return (rs, rowNum)-> {
       Post Post = new Post();
-      Post.setPostID(rs.getLong("post_id"));
+      Post.setPostId(rs.getLong("post_id"));
       Post.setTitle(rs.getString("title"));
       Post.setContent(rs.getString("content"));
       Post.setAuthor(rs.getString("author"));
@@ -48,13 +49,11 @@ public class PostDAOImpl implements PostDAO {
     sql.append("INSERT INTO post (post_id, title, content, author, creation_date, modification_date) ");
     sql.append("     VALUES (POST_POST_ID_SEQ.nextval, :title, :content, :author, :creationDate, :modificationDate)");
 
-    // 자바 객체 필드명과 SQL 파라미터명을 자동 매칭
+
     SqlParameterSource param = new BeanPropertySqlParameterSource(Post);
 
-    // 생성된 key 값을 저장할 KeyHolder
     KeyHolder keyHolder = new GeneratedKeyHolder();
 
-    // Oracle은 RETURNING INTO 문법을 지원하므로, 명시적으로 post_id 컬럼을 키로 지정
     long rows = template.update(sql.toString(), param, keyHolder, new String[]{"post_id"});
     log.info("rows={}", rows);
 
@@ -103,7 +102,7 @@ public class PostDAOImpl implements PostDAO {
   public int updateById(Long postId, Post Post) {
     StringBuffer sql = new StringBuffer();
     sql.append("UPDATE post ");
-    sql.append("   SET title = :title,  content = :content, author = :author ");
+    sql.append("   SET title = :title, content = :content, author = :author, ");
     sql.append("       modification_date = :modificationDate ");
     sql.append(" WHERE post_id = :postId ");
 
@@ -119,10 +118,27 @@ public class PostDAOImpl implements PostDAO {
     return rows;
   }
 
+  //삭제(단건)
   @Override
-  public int deleteById(Long postId) {
-    String sql = "DELETE FROM post WHERE post_id = :postId";
-    SqlParameterSource param = new MapSqlParameterSource().addValue("postId", postId);
-    return template.update(sql, param);
+  public int deleteById(Long id) {
+    StringBuffer sql = new StringBuffer();
+    sql.append("DELETE FROM post ");
+    sql.append(" WHERE post_id = :id ");
+
+    Map<String, Long> param = Map.of("id",id);
+    int rows = template.update(sql.toString(), param);
+    return rows;
+  }
+
+  //삭제 (여러건)
+  @Override
+  public int deleteByIds(List<Long> ids) {
+    StringBuffer sql = new StringBuffer();
+    sql.append("DELETE FROM post ");
+    sql.append(" WHERE post_id IN ( :ids ) ");
+
+    Map<String, List<Long>> param = Map.of("ids",ids);
+    int rows = template.update(sql.toString(), param);
+    return rows;
   }
 }

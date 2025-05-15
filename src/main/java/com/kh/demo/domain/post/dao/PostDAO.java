@@ -11,4 +11,6 @@ public interface PostDAO {
   Optional<Post> findById(Long postId);
   int updateById(Long postId, Post Post);
   int deleteById(Long postId);
+
+  int deleteByIds(List<Long> ids);
 }
