@@ -3,45 +3,89 @@
 <head>
   <meta charset="UTF-8" />
   <title>게시글 수정</title>
+  <style>
+    .field-err {
+      color: red;
+      font-size: 0.9em;
+    }
+  </style>
 </head>
 <body>
 <h3>게시글 수정</h3>
 
-<form action="" th:action="@{/post/{id}/update(id=*{postId})}" method="post" th:object="${post}" >
+<form id="frm" th:action="@{/post/{id}/update(id=*{postId})}" method="post" th:object="${post}">
   <div th:if="${#fields.hasGlobalErrors()}">
-    <p class="global-err" th:each="err.${#fields.globalErrors()}" th:text="${err}"></p>
+    <p class="global-err" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
   </div>
+
   <div>
-    <label for="">게시글ID</label>
+    <label for="postId">게시글ID</label>
     <input type="text" name="postId" id="postId" th:value="*{postId}" readonly />
   </div>
 
   <div>
-    <label for="">제목</label>
+    <label for="title">제목</label>
     <input type="text" name="title" id="title" th:value="*{title}">
-    <span class="field-err" th:each="err:${#fields.errors('title')}" th:text="${err}"></span>
+    <span class="field-err" th:each="err : ${#fields.errors('title')}" th:text="${err}"></span>
     <span class="field-err" id="errTitle"></span>
   </div>
 
   <div>
     <label for="content">내용</label>
     <textarea id="content" th:field="*{content}"></textarea>
-    <span class="field-err" th:each="err:${#fields.errors('content')}" th:text="${err}"></span>
+    <span class="field-err" th:each="err : ${#fields.errors('content')}" th:text="${err}"></span>
     <span class="field-err" id="errContent"></span>
   </div>
 
   <div>
     <label for="author">작성자</label>
     <input type="text" name="author" id="author" th:value="*{author}" readonly />
-    <span class="field-err" th:each="err:${#fields.errors('author')}" th:text="${err}"></span>
+    <span class="field-err" th:each="err : ${#fields.errors('author')}" th:text="${err}"></span>
     <span class="field-err" id="errAuthor"></span>
   </div>
 
   <div>
     <button type="submit" id="btnUpdate">저장</button>
-    <button type="button" id="btnList" onclick="location.href='/post/list'">목록</button>
+    <button type="button" id="btnList">목록</button>
   </div>
 </form>
 
+<script>
+  const btnUpdate = document.getElementById('btnUpdate');
+  const btnList = document.getElementById('btnList');
+  const title = document.getElementById('title');
+  const content = document.getElementById('content');
+
+  const errTitle = document.getElementById('errTitle');
+  const errContent = document.getElementById('errContent');
+
+  btnUpdate.addEventListener('click', function (e) {
+    e.preventDefault();
+
+    let isValid = true;
+
+    if (title.value.trim().length === 0) {
+      errTitle.textContent = "제목은 필수입니다.";
+      isValid = false;
+    } else {
+      errTitle.textContent = "";
+    }
+
+    if (content.value.trim().length === 0) {
+      errContent.textContent = "내용은 필수입니다.";
+      isValid = false;
+    } else {
+      errContent.textContent = "";
+    }
+
+    if (isValid) {
+      document.getElementById('frm').submit();
+    }
+  });
+
+  btnList.addEventListener('click', function () {
+    window.location.href = '/post/list';
+  });
+</script>
 </body>
 </html>

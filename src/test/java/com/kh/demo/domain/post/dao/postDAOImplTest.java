@@ -52,7 +52,7 @@ class postDAOImplTest {
   @Test
   @DisplayName("게시글 조회")
   void findById(){
-    Long postId = 9L;
+    Long postId = 70L;
     Optional<Post> optionalPost = postDAO.findById(postId);
     Post findedPost = optionalPost.orElseThrow();
     log.info("findedPost={}", findedPost);
@@ -62,7 +62,7 @@ class postDAOImplTest {
   @Test
   @DisplayName("게시글 삭제(단건)")
   void deleteById() {
-    Long postId = 9L; // 예시로 ID 4를 사용
+    Long postId = 73L; // 예시로 ID 4를 사용
     int rows = postDAO.deleteById(postId);
     log.info("삭제된 행 수={}", rows);
     Assertions.assertThat(rows).isEqualTo(1); // 1개의 게시글이 삭제되었는지 확인
@@ -71,7 +71,7 @@ class postDAOImplTest {
   @Test
   @DisplayName("게시글 수정")
   void updateById() {
-    Long postId = 8L; // 예시 ID
+    Long postId = 70L; // 예시 ID
     Post Post = new Post();
     Post.setTitle("수정된 제목");
     Post.setContent("수정된 내용");
