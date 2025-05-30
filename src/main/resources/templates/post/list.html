@@ -31,8 +31,26 @@
   </span>
     <br/>
   </div>
-
 </form>
+
+<!-- post페이징 -->
+<div class="pagination">
+
+  <span>
+    <a th:href="@{/post/list(page=${prevPage})}">◀</a>
+  </span>
+
+  <!-- 10페이지씩 숫자 표시 -->
+  <span th:each="i : ${#numbers.sequence(startPage, endPage)}">
+    <a th:href="@{/post/list(page=${i})}"
+       th:text="${i}"
+       th:classappend="${(i == currentPage) ? 'active' : ''}">페이지</a>
+  </span>
+
+  <span>
+    <a th:href="@{/post/list(page=${endPage + 1})}">▶</a>
+  </span>
+</div>
 
 <!-- 삭제 확인 모달 -->
 <dialog id="modalDel">

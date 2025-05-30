@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>회원가입</title>
+</head>
+<body>
+  <h3>회 원 가 입</h3>
+  <form th:action="@{/members/join}" method="post" th:object="${joinForm}">
+    <div th:if="${#fields.hasGlobalErrors()}">
+      <p class="global-err" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
+    </div>
+    <div>
+      <label for="email">이메일</label>
+      <input type="email" id="email" th:field="*{email}">
+      <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+    </div>
+    <div>
+      <label for="passwd">비밀번호</label>
+      <input type="password" id="passwd" th:field="*{passwd}">
+      <div th:if="${#fields.hasErrors('passwd')}" th:errors="*{passwd}"></div>
+    </div>
+    <div>
+      <label for="passwdChk">비밀번호 확인</label>
+      <input type="password" id="passwdChk" th:field="*{passwdChk}">
+      <div th:if="${#fields.hasErrors('passwdChk')}" th:errors="*{passwdChk}"></div>
+    </div>
+    <div>
+      <label for="nickname">별칭</label>
+      <input type="text" id="nickname" th:field="*{nickname}">
+      <div th:if="${#fields.hasErrors('nickname')}" th:errors="*{nickname}"></div>
+    </div>
+    <div>
+      <button>가입하기</button>
+      <button type="reset">취소</button>
+      <a href="/" role="button">돌아가기</a>
+    </div>
+  </form>
+</body>
+</html>

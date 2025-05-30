@@ -35,6 +35,12 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	/* 롬북을 junit에서 사용하고자 할때 반드시 포함 */
+	testCompileOnly 'org.projectlombok:lombok'
+	testAnnotationProcessor 'org.projectlombok:lombok'
+	/**********************************************/
+	testImplementation 'org.assertj:assertj-core:3.24.2'
+
 }
 
 tasks.named('test') {

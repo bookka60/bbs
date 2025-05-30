@@ -1,6 +1,8 @@
 package com.kh.demo.domain.post.svc;
 
 import com.kh.demo.domain.entity.Post;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,4 +25,7 @@ public interface PostSVC {
 
   //post 삭제(단건)
   int deleteById(Long postId);
+
+  Page<Post> findAll(Pageable pageable);
+
 }

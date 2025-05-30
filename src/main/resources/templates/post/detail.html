@@ -35,6 +35,59 @@
   </div>
 </form>
 
+<hr />
+<h4>댓글 목록</h4>
+<div th:if="${comments != null}">
+  <ul>
+    <li th:each="comment : ${comments}">
+      <p>
+        <strong th:text="${comment.writer}">작성자</strong>:
+        <span th:text="${comment.content}">댓글 내용</span>
+      </p>
+      <p>
+        <small th:text="${#temporals.format(comment.createdAt, 'yyyy-MM-dd HH:mm')}">작성일</small>
+        <span th:if="${loginMember != null and loginMember.nickname == comment.writer}">
+          <a th:href="@{/comments/{id}/edit(id=${comment.commentId})}">수정</a> |
+          <a th:href="@{/comments/{id}/del(id=${comment.commentId})}" onclick="return confirm('삭제하시겠습니까?');">삭제</a>
+        </span>
+      </p>
+    </li>
+  </ul>
+</div>
+
+<!-- 댓글 페이징 -->
+<div class="pagination">
+
+  <span>
+    <a th:href="@{/post/{id}(id=${post.postId}, cpage=${prevPage})}">◀</a>
+  </span>
+
+  <span th:each="i : ${#numbers.sequence(startPage, endPage)}">
+    <a th:href="@{/post/{id}(id=${post.postId}, cpage=${i})}"
+       th:text="${i}"
+       th:classappend="${(i == currentPage) ? 'active' : ''}">페이지</a>
+  </span>
+
+  <span>
+    <a th:href="@{/post/{id}(id=${post.postId}, cpage=${nextPage})}">▶</a>
+  </span>
+</div>
+
+
+<hr />
+<div th:if="${loginMember != null}">
+  <h4>댓글 작성</h4>
+  <form th:action="@{/comments/new}" method="post" th:object="${newComment}">
+    <input type="hidden" th:field="*{postId}" />
+    <textarea th:field="*{content}" placeholder="댓글 내용을 입력하세요"></textarea>
+    <br />
+    <button type="submit">댓글 작성</button>
+  </form>
+</div>
+<div th:if="${loginMember == null}">
+  <p><a href="/login">로그인</a> 후 댓글 작성이 가능합니다.</p>
+</div>
+
 <dialog id="modalDel">
   <p>삭제하시겠습니까?</p>
   <button class="btnYes">예</button>

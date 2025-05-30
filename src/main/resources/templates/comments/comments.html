@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Title</title>
+</head>
+<body>
+<!-- 게시글 상세 내용 표시 -->
+<h2>제목: [[${post.title}]]</h2>
+<p>내용: [[${post.content}]]</p>
+
+<hr/>
+
+<!-- 댓글 목록 -->
+<h3>댓글</h3>
+<div th:if="${#lists.isEmpty(comments)}">
+  <p>등록된 댓글이 없습니다.</p>
+</div>
+<ul th:each="comment : ${comments}">
+  <li>
+    <b>작성자:</b> [[${comment.writer}]] <br/>
+    <b>내용:</b> [[${comment.content}]] <br/>
+    <small>작성일: [[${#temporals.format(comment.createdAt, 'yyyy-MM-dd HH:mm')]]]</small>
+    <!-- 수정/삭제 버튼: 작성자만 보이도록 처리 -->
+    <div th:if="${session.loginMember != null and session.loginMember.email == comment.writer}">
+      <form th:if="${comment.commentId != null}" th:action="@{/comments/{id}/delete(id=${comment.commentId})}" method="post">
+        <button type="submit">삭제</button>
+      </form>
+      <form th:if="${comment.commentId != null}" th:action="@{/comments/{id}/edit(id=${comment.commentId})}" method="get">
+        <button type="submit">수정</button>
+      </form>
+    </div>
+  </li>
+</ul>
+<!-- 댓글페이징 -->
+<div class="comment-pagination">
+  <span th:if="${currentPage > 1}">
+    <a th:href="@{/post/{id}(id=${post.postId}, cpage=${currentPage - 1})}">이전</a>
+  </span>
+
+  <span th:with="blockSize=5, startPage=((currentPage -1) / blockSize) * blockSize +1,
+              endPage=(startPage + blockSize -1) > totalPages ? totalPages : (startPage + blockSize -1)">
+
+  <span th:if="${startPage > 1}">
+    <a th:href="@{/post/{id}(id=${post.postId}, cpage=${startPage - 1})}">...</a>
+  </span>
+
+  <span th:each="i : ${#numbers.sequence(startPage, endPage)}">
+    <a th:href="@{/post/{id}(id=${post.postId}, cpage=${i})}"
+       th:text="${i}"
+       th:classappend="${i == currentPage} ? 'active' : ''">페이지</a>
+    </span>
+    
+    <span th:if="${endPage < totalPages}">
+      <a th:href="@{/post/{id}(id=${post.postId}, cpage=${endPage + 1})}">...</a>
+    </span>
+  </span>
+
+  <span th:if="${currentPage < totalPages}">
+    <a th:href="@{/post/{id}(id=${post.postId}, cpage=${currentPage + 1})}">다음</a>
+  </span>
+</div>
+
+
+<hr/>
+
+<!-- 댓글 작성 폼 -->
+<h4>댓글 작성</h4>
+<form th:action="@{/comments/new}" method="post">
+  <input type="hidden" name="postId" th:value="${post.postId}" />
+  <textarea name="content" rows="3" cols="50" placeholder="댓글을 입력하세요"></textarea><br/>
+  <button type="submit">댓글 등록</button>
+</form>
+
+</body>
+</html>

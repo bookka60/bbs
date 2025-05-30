@@ -3,13 +3,34 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Title</title>
+  <title>게시판</title>
 </head>
 <body>
-<h3>hello world~! from templates</h3>
-<ul>
-  <!-- @{/post}로 수정 -->
-  <li><a th:href="@{/post/list}">글목록</a></li>
-</ul>
+<h3>초기화면</h3>
+
+  <div th:if="${session.loginMember == null}">
+    <ul>
+      <li><a th:href="@{/members/join}">회원가입</a></li>
+      <li><a th:href="@{/login}">로그인</a></li>
+    </ul>
+  </div>
+
+  <div th:if="${session.loginMember != null}">
+    <p th:text="|안녕하세요, ${session.loginMember.nickname}님!|"></p>
+    <ul>
+      <li><a href="#" onclick="logout()">로그아웃</a></li>
+      <li><a th:href="@{/post/list}">글목록</a></li>
+    </ul>
+  </div>
+
+  <script>
+    function logout(){
+      fetch('/logout', {
+        method: 'DELETE'
+      }).then(res => {
+        if (res.ok) location.href = '/';
+      });
+    }
+  </script>
 </body>
 </html>
